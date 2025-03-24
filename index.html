@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assistente GPT - Jornada do Samurai</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #c02942;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #c02942;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #a91f34;
+    }
+    #resposta {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>🥷 Assistente GPT – Jornada do Samurai</h1>
+
+  <textarea id="mensagem" placeholder="Digite sua pergunta sobre Medicina Tradicional Chinesa..."></textarea>
+  <br>
+  <button onclick="enviar()">Enviar</button>
+
+  <div id="resposta"></div>
+
+  <script>
+    async function enviar() {
+      const mensagem = document.getElementById('mensagem').value;
+      const respostaEl = document.getElementById('resposta');
+      respostaEl.innerText = 'Consultando...';
+
+      try {
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ mensagem })
+        });
+
+        const data = await response.json();
+        respostaEl.innerText = data.resposta;
+      } catch (err) {
+        respostaEl.innerText = 'Erro ao consultar o assistente.';
+      }
+    }
+  </script>
+</body>
+</html>
