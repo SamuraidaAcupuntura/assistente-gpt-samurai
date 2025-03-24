@@ -1,3 +1,5 @@
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
 const express = require("express");
 const fetch = require("node-fetch");
 const cors = require("cors");
